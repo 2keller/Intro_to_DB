@@ -1,0 +1,34 @@
+create database alx_book_store;
+create table books (
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(130) NOT NULL,
+    author_id INT REFERENCES authors(author_id),
+    price DOUBLE PRECISION NOT NULL,
+    publication_date DATE NOT NULL
+
+)
+
+create table authors (
+    author_id SERIAL PRIMARY KEY,
+    author_name VARCHAR(100) NOT NULL
+
+)
+
+create table customers (
+    customer_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(215) NOT NULL,
+    email VARCHAR(215) NOT NULL UNIQUE,
+    address TEXT
+)
+create table orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES customers(customer_id),
+    order_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    
+)
+
+create TABLE order_details(
+    order_id INT REFERENCES orders(order_id),
+    book_id INT REFERENCES books(book_id),
+    quantity INT NOT NULL,
+  );
